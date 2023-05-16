@@ -21,3 +21,8 @@ export const getUserByIdFromDB = async (
   );
   return users;
 };
+
+export const getAdminUserFromDB = async (): Promise<IUser[]> => {
+  const users = await User.getAdminUsers();
+  return users;
+};
