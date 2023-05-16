@@ -3,7 +3,7 @@ import { IUser, IUserMethods } from "./user.interface";
 
 type UserModel = Model<IUser, {}, IUserMethods>;
 
-const userSchema = new Schema<IUser>({
+const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   id: { type: String, required: true, unique: true },
   role: { type: String, required: true },
   password: { type: String, required: true },
@@ -43,6 +43,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
   },
+});
+
+userSchema.method("fullName", function fullName() {
+  return this.name.firstName + " " + this.name.lastName;
 });
 
 const User = model<IUser>("User", userSchema);
